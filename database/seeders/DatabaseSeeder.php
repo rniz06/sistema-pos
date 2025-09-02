@@ -16,13 +16,19 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Administrador',
-            'usuario' => 'Administrador',
-            'email' => 'ronaldalexisniznunez@gmail.com',
-            'password' => Hash::make('Administrador'),
-            'activo'  => true,
-            'ultimo_acceso'  => now(),
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Administrador',
+        //     'usuario' => 'Administrador',
+        //     'email' => 'ronaldalexisniznunez@gmail.com',
+        //     'password' => Hash::make('Administrador'),
+        //     'activo'  => true,
+        //     'ultimo_acceso'  => now(),
+        // ]);
+
+        $this->call([
+        RolYPermisoSeeder::class,
+        //PostSeeder::class,
+        //CommentSeeder::class,
+    ]);
     }
 }

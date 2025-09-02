@@ -317,6 +317,17 @@ return [
             'text' => 'search',
         ],
         [
+            'text' => 'Admin',
+            'icon' => 'fas fa-terminal',
+            'submenu' => [
+                [
+                    'text' => 'Usuarios',
+                    'route' => 'admin.usuarios.index',
+                    'can' => 'SuperAdmin',
+                ],
+            ],
+        ],
+        [
             'text' => 'blog',
             'url' => 'admin/blog',
             'can' => 'manage-blog',
@@ -547,5 +558,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

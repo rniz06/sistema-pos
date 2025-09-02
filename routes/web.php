@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
+include_once __DIR__.'/admin.php'; // Incluir las rutas de admin
+
 Route::get('/', function () {
     return view('welcome');
 });
