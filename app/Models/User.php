@@ -53,4 +53,9 @@ class User extends Authenticatable implements Auditable
             'ultimo_acceso'     => 'datetime',
         ];
     }
+
+    public static function registrarAcceso($id)
+    {
+        static::findOrFail($id)->update(['ultimo_acceso' => now()]);
+    }
 }

@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Login\LoginRequest;
+use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -18,28 +23,44 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('auth')->only('logout');
     }
 
-    public function username()
+    /**
+     * Retornar la vista de autenticación.
+     */
+    public function index()
     {
-        return 'usuario';    
+        return view('auth.login');
+    }
+
+    /**
+     * Autenticar al usuario en la aplicación.
+     */
+    public function login(LoginRequest $request)
+    {
+        if (Auth::attempt(['usuario' => $request->usuario, 'password' => $request->password, 'activo' => 1])) {            
+            User::registrarAcceso(User::where('usuario', $request->usuario)->value('id'));
+            return redirect()->route('home');
+        }
+
+        // Si llegamos aquí, la autenticación falló
+        return back()->withErrors(['usuario' => 'Credenciales inválidas']);
+    }
+
+    /**
+     * Cerrar la sesión del usuario de la aplicación.
+     */
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }
