@@ -41,9 +41,9 @@
         </div>
     </div>
 
-    <div class="card-body table-responsive p-0">
+    <div class="card-body table-responsive p-1">
         <table class="table table-bordered table-hover table-striped mb-0">
-            <thead class="thead-light">
+            <thead>
                 <tr>
                     {{ $cabeceras }}
                 </tr>
@@ -57,7 +57,7 @@
     @if($paginacion)
         <div class="card-footer clearfix d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div class="mb-2 mb-md-0">
-                <select class="form-control form-control-sm" name=""
+                <select class="form-control form-control-sm"
                         style="width: 80px; display:inline-block;"
                         wire:model.live="{{ $paginado }}">
                     <option value="5">5</option>

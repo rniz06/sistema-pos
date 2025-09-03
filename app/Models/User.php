@@ -14,7 +14,7 @@ class User extends Authenticatable implements Auditable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use \OwenIt\Auditing\Auditable;
-    use HasRoles,HasFactory, Notifiable, SoftDeletes;
+    use HasRoles, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +58,71 @@ class User extends Authenticatable implements Auditable
     public static function registrarAcceso($id)
     {
         static::findOrFail($id)->update(['ultimo_acceso' => now()]);
+    }
+
+    /**
+     * Para los filtros de busqueda
+     */
+    // public function scopeBuscador($query, $value)
+    // {
+    //     if (!empty($value)) {
+    //         $query->whereAny([
+    //             'name',
+    //             'usuario',
+    //             'email',
+    //             'activo',
+    //             'ultimo_acceso',
+    //         ], 'LIKE', "%{$value}%");
+    //     }
+    // }
+
+    public function scopeBuscador($query, $value)
+    {
+        $query->where('name', 'like', "%{$value}%")
+            ->orWhere('usuario', 'like', "%{$value}%")
+            ->orWhere('email', 'like', "%{$value}%")
+            ->orWhere('email', 'like', "%{$value}%")
+            ->orWhere('activo', 'like', "%{$value}%")
+            ->orWhere('ultimo_acceso', 'like', "%{$value}%");
+    }
+
+    /**
+     * Buscador del campo name.
+     */
+    public function scopeBuscarName($query, $value)
+    {
+        if (!empty($value)) {
+            $query->where('name', 'like', "%{$value}%");
+        }
+    }
+
+    /**
+     * Buscador del campo usuario.
+     */
+    public function scopeBuscarUsuario($query, $value)
+    {
+        if (!empty($value)) {
+            $query->where('usuario', 'like', "%{$value}%");
+        }
+    }
+
+    /**
+     * Buscador del campo email.
+     */
+    public function scopeBuscarEmail($query, $value)
+    {
+        if (!empty($value)) {
+            $query->where('email', 'like', "%{$value}%");
+        }
+    }
+
+    /**
+     * Buscador del campo activo.
+     */
+    public function scopeBuscarActivo($query, $value)
+    {
+        if ($value !== '' && $value !== null) {
+            $query->where('activo', $value);
+        }
     }
 }
