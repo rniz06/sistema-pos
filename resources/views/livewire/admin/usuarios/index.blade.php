@@ -1,5 +1,5 @@
 <div>
-    <x-tabla titulo="Usuarios" buscador excel="excelUsuarios" pdf paginado="perPageUsuarios">
+    <x-tabla titulo="Usuarios" buscador excel pdf paginado="perPageUsuarios">
         <x-slot name="cabeceras">
             {{-- Name --}}
             <th>
