@@ -27,7 +27,7 @@
 
             {{-- Buscador --}}
             @if($buscador)
-                <div class="input-group input-group-sm" style="width: 180px;">
+                <div class="input-group input-group-sm">
                     <input type="text" class="form-control" placeholder="Buscar..."
                         wire:model.live="{{ $buscador }}">
 
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="card-body table-responsive p-1">
+    <div class="card-body table-responsive p-0">
         <table class="table table-bordered table-hover table-striped mb-0">
             <thead>
                 <tr>
@@ -55,17 +55,17 @@
     </div>
 
     @if($paginacion)
-        <div class="card-footer clearfix d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center m-2">
             <div class="mb-2 mb-md-0">
                 <select class="form-control form-control-sm"
-                        style="width: 80px; display:inline-block;"
+                        style="width: 50px; display:inline-block;"
                         wire:model.live="{{ $paginado }}">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
                     <option value="20">20</option>
                 </select>
-                <small>Por página</small>
+                <small>Registros por página</small>
             </div>
             <div>
                 {{ $paginacion }}

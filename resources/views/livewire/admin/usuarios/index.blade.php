@@ -3,32 +3,42 @@
         <x-slot name="cabeceras">
             {{-- Name --}}
             <th>
-                <x-adminlte-input name="" wire:model.live.debounce.250ms="buscarName" label="Nombre"
+                <x-adminlte-input name="" wire:model.live.debounce.200ms="buscarName" label="Nombre"
                     igroup-size="sm" />
             </th>
 
             {{-- Usuario --}}
             <th>
-                <x-adminlte-input name="" wire:model.live.debounce.250ms="buscarUsuario" label="Usuario"
+                <x-adminlte-input name="" wire:model.live.debounce.200ms="buscarUsuario" label="Usuario"
                     igroup-size="sm" />
             </th>
 
             {{-- Email --}}
             <th>
-                <x-adminlte-input name="" wire:model.live.debounce.250ms="buscarEmail" label="Email"
+                <x-adminlte-input name="" wire:model.live.debounce.200ms="buscarEmail" label="Email"
                     igroup-size="sm" />
             </th>
 
             {{-- Activo --}}
             <th>
-                <x-adminlte-select name="" wire:model.live.debounce.250ms="buscarActivo" label="Activo"
+                <x-adminlte-select name="" wire:model.live.debounce.200ms="buscarActivo" label="Activo"
                     igroup-size="sm">
                     <option value="">-- Todos --</option>
                     <option value="1">Si</option>
                     <option value="0">No</option>
                 </x-adminlte-select>
             </th>
-            <th>Acciones</th>
+
+            {{-- Ultimo Acceso --}}
+            <th>
+                <x-adminlte-input name="" label="Ultimo Acceso" igroup-size="sm" disabled />
+            </th>
+
+            {{-- Acciones --}}
+            <th>
+                <x-adminlte-input name="" label="Acciones" igroup-size="sm" disabled />
+            </th>
+
         </x-slot>
 
         @forelse ($usuarios as $usuario)
@@ -36,8 +46,8 @@
                 <td>{{ $usuario->name ?? 'S/D' }}</td>
                 <td>{{ $usuario->usuario ?? 'S/D' }}</td>
                 <td>{{ $usuario->email ?? 'S/D' }}</td>
-                <td>{{ $usuario->activo ?? 'S/D' }}</td>
-                <td>{{ $usuario->ultimo_acceso ?? 'S/D' }}</td>
+                <td>{{ $usuario->activo ? 'SI' : 'NO' ?? 'S/D' }}</td>
+                <td>{{ $usuario->ultimo_acceso->format('d/m/Y H:i:s') ?? 'S/D' }}</td>
                 <td>
                     <button class="btn btn-xs btn-primary"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>

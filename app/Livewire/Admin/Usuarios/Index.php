@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\Usuarios;
 
 use App\Models\User;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,7 +18,7 @@ class Index extends Component
     public $buscarActivo = '';
     public $paginado = 5;
 
-     // Limpiar el buscador y la paginación al cambiar de pagina
+    // Limpiar el buscador y la paginación al cambiar de pagina
     public function updating($key): void
     {
         if (in_array($key, [
@@ -40,7 +41,7 @@ class Index extends Component
                 ->buscarUsuario($this->buscarUsuario)
                 ->buscarEmail($this->buscarEmail)
                 ->buscarActivo($this->buscarActivo)
-            ->paginate($this->paginado)
+                ->paginate($this->paginado)
         ]);
     }
 }

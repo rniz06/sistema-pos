@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,33 +64,22 @@ class User extends Authenticatable implements Auditable
     }
 
     /**
-     * Para los filtros de busqueda
+     * Se implementa funcion para buscador general.
      */
-    // public function scopeBuscador($query, $value)
-    // {
-    //     if (!empty($value)) {
-    //         $query->whereAny([
-    //             'name',
-    //             'usuario',
-    //             'email',
-    //             'activo',
-    //             'ultimo_acceso',
-    //         ], 'LIKE', "%{$value}%");
-    //     }
-    // }
-
     public function scopeBuscador($query, $value)
     {
-        $query->where('name', 'like', "%{$value}%")
-            ->orWhere('usuario', 'like', "%{$value}%")
-            ->orWhere('email', 'like', "%{$value}%")
-            ->orWhere('email', 'like', "%{$value}%")
-            ->orWhere('activo', 'like', "%{$value}%")
-            ->orWhere('ultimo_acceso', 'like', "%{$value}%");
+        if (!empty($value)) {
+            $query->where('name', 'like', "%{$value}%")
+                ->orWhere('usuario', 'like', "%{$value}%")
+                ->orWhere('email', 'like', "%{$value}%")
+                ->orWhere('email', 'like', "%{$value}%")
+                ->orWhere('activo', 'like', "%{$value}%")
+                ->orWhere('ultimo_acceso', 'like', "%{$value}%");
+        }
     }
 
     /**
-     * Buscador del campo name.
+     * Buscador Por Campo name.
      */
     public function scopeBuscarName($query, $value)
     {
@@ -97,7 +89,7 @@ class User extends Authenticatable implements Auditable
     }
 
     /**
-     * Buscador del campo usuario.
+     * Buscador Por Campo usuario.
      */
     public function scopeBuscarUsuario($query, $value)
     {
@@ -107,7 +99,7 @@ class User extends Authenticatable implements Auditable
     }
 
     /**
-     * Buscador del campo email.
+     * Buscador Por Campo email.
      */
     public function scopeBuscarEmail($query, $value)
     {
@@ -117,12 +109,12 @@ class User extends Authenticatable implements Auditable
     }
 
     /**
-     * Buscador del campo activo.
+     * Buscador Por Campo activo.
      */
     public function scopeBuscarActivo($query, $value)
     {
-        if ($value !== '' && $value !== null) {
-            $query->where('activo', $value);
+        if (in_array($value, ['0', '1'])) {
+            $query->where('activo', $value === '1');
         }
     }
 }
