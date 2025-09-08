@@ -58,7 +58,7 @@
         <div class="d-flex justify-content-between align-items-center m-2">
             <div class="mb-2 mb-md-0">
                 <select class="form-control form-control-sm"
-                        style="width: 50px; display:inline-block;"
+                        style="width: 55px; display:inline-block;"
                         wire:model.live="{{ $paginado }}">
                     <option value="5">5</option>
                     <option value="10">10</option>
